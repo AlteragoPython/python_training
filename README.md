@@ -1,1 +1,1 @@
-# python_training
+# python_training ready for training
