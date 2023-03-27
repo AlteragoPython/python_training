@@ -1,7 +1,7 @@
 import os
 import re
 def validate_line(line):
-    elements = line.strip().split(',')
+    elements = line.split()
     if len(elements) != 5:
         return False, 'validate_line'
     else:
