@@ -1,8 +1,11 @@
 import os
 import re
 def validate_line(line):
-    elements = line.split()
-    return len(elements) == 5
+    elements = line.strip().split(',')
+    if len(elements) != 5:
+        return False, 'validate_line'
+    else:
+        return True, ''
 
 def validate_date(line):
     elements = line.split()
