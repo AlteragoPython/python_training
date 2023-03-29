@@ -8,5 +8,6 @@ def combinations(*args: List[Any]) -> List[List]:
             for sub_combination in combinations(*args[1:]):
                 result.append([item] + sub_combination)
         return result
-result = combinations([1, 2], [3, 4], [5, 6])
+
+result = combinations([1, 2], [3, 4])
 print(result)
