@@ -7,7 +7,6 @@ from functools import wraps
 
 def cache(func):
     cache_dict = {}
-
     @wraps(func)
     def wrapper(*args, **kwargs):
         key = (args, tuple(kwargs.items()))
