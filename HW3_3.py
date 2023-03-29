@@ -12,3 +12,4 @@ def sequence(seq, start, stop=None, step=1):
 
 assert sequence(string.ascii_lowercase, 'g') == ['a', 'b', 'c', 'd', 'e', 'f']
 assert sequence(string.ascii_lowercase, 'g', 'p') == ['g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o']
+assert sequence(string.ascii_lowercase, 'p', 'g', -2) == ['p', 'n', 'l', 'j', 'h']
