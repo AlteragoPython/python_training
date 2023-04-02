@@ -3,9 +3,9 @@ import re
 def validate_line(line):
     elements = line.split()
     if len(elements) != 5:
-        return False, 'validate_line'
+        return False
     else:
-        return True, ''
+        return True
 
 def validate_date(line):
     elements = line.split()
@@ -13,18 +13,20 @@ def validate_date(line):
     return re.match(r'^\d{4}-\d{2}-\d{2}$', date) is not None
 
 def check_data(filepath, validators):
-    report_file = "report.txt"
-    with open(filepath) as file, open(report_file, "w") as report:
-        for line in file:
+    report_file = "/Users/Mikhail_Chizhov/Downloads/report.txt"
+    with open(filepath) as file, open(report_file, "w+") as report:
+        for line_num, line in enumerate(file, 1):
             line = line.strip()
             failed_validators = [v.__name__ for v in validators if not v(line)]
-            if failed_validators:
+            if len(failed_validators) > 0:
                 reason = failed_validators[0]
-                report.write(f"{line} {reason}\n")
+                report.write(f"Line {line_num}: {line} failed validation for {reason}\n")
+
     return os.path.abspath(report_file)
+
+
 
 file_path = "/Users/Mikhail_Chizhov/Downloads/data (1).txt"
 validators = [validate_line, validate_date]
-result_path = check_data(file_path, validators)
-print(f"Report file saved at {result_path}")
-
+report_path = check_data(file_path, validators)
+print(f"Report file generated at {report_path}")
