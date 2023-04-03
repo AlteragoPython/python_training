@@ -1,54 +1,52 @@
-from datetime import datetime
-
+from datetime import datetime, timedelta
 
 class DeadlineError(Exception):
     pass
 
-
 class Homework:
-    def __init__(self, text, deadline):
+    def __init__(self, text, deadline_days):
         self.text = text
-        self.deadline = datetime.datetime.now() + deadline
+        self.deadline = datetime.now() + timedelta(days=deadline_days)
 
     def is_active(self):
-        return datetime.datetime.now() < self.deadline
-
-
+        return datetime.now() < self.deadline
 
 class Student:
     def __init__(self, name, surname):
         self.name = name
+        self.homework_done = {}
         self.surname = surname
-    def do_homework(self, homework):
+
+    def do_homework(self, homework, solution):
         if not homework.is_active():
             raise DeadlineError("You are late")
-
-        solution = input("Enter your solution: ")
-        if len(solution) < 5:
-            raise ValueError("Solution is too short")
-
-        self.homework = homework
-        self.solution = solution
-
-
+        return solution
 class Teacher:
+    homework_done = {}
     def __init__(self, name, surname):
         self.name = name
         self.surname = surname
 
-    def create_homework(self, text, deadline):
-        homework = {"text": text, "deadline": deadline}
-        self.homeworks.append(homework)
-        return homework
+    @staticmethod
+    def create_homework(text, deadline):
+        return Homework(text, deadline)
 
-    def check_homework(self, homework_solution):
-        homework_text = homework_solution["text"]
-        solution = homework_solution["solution"]
+    @classmethod
+    def check_homework(cls, homework_solution):
+        homework = homework_solution.homework
+        solution = homework_solution.solution
         if len(solution) < 5:
             return False
-        if homework_text not in self.homework_solutions:
-            self.homework_solutions[homework_text] = []
-        self.homework_solutions[homework_text].append(solution)
+        if homework not in cls.homework_done:
+            cls.homework_done[homework] = []
+        cls.homework_done[homework].append(solution)
         return True
+
+    @classmethod
+    def reset_results(cls, homework=None):
+        if homework is None:
+            cls.homework_done.clear()
+        elif homework in cls.homework_done:
+            cls.homework_done[homework] = []
 
 
