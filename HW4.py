@@ -39,7 +39,7 @@ class Teacher:
     def create_homework(self, text, deadline):
         homework = {"text": text, "deadline": deadline}
         self.homeworks.append(homework)
-        return homewor
+        return homework
 
     def check_homework(self, homework_solution):
         homework_text = homework_solution["text"]
