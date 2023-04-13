@@ -22,3 +22,4 @@ class KeyValueStorage:
             super().__setattr__(key, value)
         else:
             raise AttributeError("Cannot set values directly, use the file to update values")
+#end
