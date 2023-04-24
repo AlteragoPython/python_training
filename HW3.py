@@ -25,8 +25,3 @@ def check_data(filepath, validators):
     return os.path.abspath(report_file)
 
 
-
-file_path = "/Users/Mikhail_Chizhov/Downloads/data (1).txt"
-validators = [validate_line, validate_date]
-report_path = check_data(file_path, validators)
-print(f"Report file generated at {report_path}")
