@@ -56,7 +56,8 @@ def test_product_selection(login):
         if price > highest_price:
             highest_price = price
             highest_price_product = product
-    highest_price_product.find_element(By.CSS_SELECTOR, "h4").click()
+    highest_price_product_text = highest_price_product.find_element(By.CSS_SELECTOR, "h4 a").text
+    highest_price_product.find_element(By.CSS_SELECTOR, "h4 a").click()
     WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "h2")))
 
 
@@ -69,10 +70,13 @@ def test_product_selection(login):
 
     # Step 4: Click on Cart button
     driver.find_element(By.ID, "cartur").click()
+    time.sleep(2)
 
     # Assert that the product is in the cart
-    cart_items = driver.find_elements(By.CSS_SELECTOR, "div.table-responsive")
-    assert any(highest_price_product.text in item.text for item in cart_items)
+    cart_items = driver.find_elements(By.CSS_SELECTOR,"tr.success")
+    assert any(highest_price_product_text in item.text for item in cart_items), f"{highest_price_product_text} is not found in the cart"
+
+
 
 
 
